@@ -8,7 +8,6 @@ export class ProducerService {
   private readonly logger = new Logger(ProducerService.name);
 
   constructor() {
-    // CORREÇÃO: Use RABBITMQ_PASS em vez de RABBITMQ_PASSWORD
     const rabbitmqUrl = `amqp://${process.env.RABBITMQ_USER}:${process.env.RABBITMQ_PASSWORD}@${process.env.RABBITMQ_HOST}:${process.env.RABBITMQ_PORT}`;
 
     this.logger.log(
@@ -40,9 +39,9 @@ export class ProducerService {
         Buffer.from(JSON.stringify(data)),
         { persistent: true },
       );
-      this.logger.log(`✅ Mensagem enviada para a fila: ${queue}`);
+      this.logger.log(`Mensagem enviada para a fila: ${queue}`);
     } catch (error) {
-      this.logger.error(`❌ Erro ao enviar mensagem: ${error.message}`);
+      this.logger.error(`Erro ao enviar mensagem: ${error.message}`);
       throw new HttpException(
         'Error adding message to queue',
         HttpStatus.INTERNAL_SERVER_ERROR,
