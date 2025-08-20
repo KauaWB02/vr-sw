@@ -1,0 +1,57 @@
+<div class="notification-container">
+  <div class="input-card">
+    <div class="input-group">
+      <input
+        type="text"
+        [(ngModel)]="message"
+        placeholder="Digite sua mensagem..."
+        class="message-input"
+
+      />
+      <button (click)="sendMessage()" class="send button" [disabled]="message === ''">
+        <span class="button-text">Enviar</span>
+      </button>
+      <button (click)="clearInput()" class="clear button">
+        <span class="button-text">Limpar</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="notifications-container">
+    <div class="notifications-header">
+      <h2>Notificações Enviadas</h2>
+    </div>
+
+    <div class="notifications-table-container">
+      <table class="notifications-table" *ngIf="notifications.length > 0">
+        <thead>
+          <tr>
+            <th>Indentificador</th>
+            <th>Mensagem</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let notification of notifications" class="notification-row">
+            <td class="notification-intentifier" matTooltip="{{ notification.mensagemId }}">
+              {{ notification.mensagemId }}
+            </td>
+            <td class="notification-content">
+              {{ notification.conteudoMensagem }}
+            </td>
+            <td class="notification-status">
+              <span class="status-badge" [class]="notification.status">
+                {{ getStatusText(notification.status) }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="notifications.length === 0" class="empty-state">
+        <mat-icon>notifications_off</mat-icon>
+        <p>Nenhuma notificação enviada</p>
+      </div>
+    </div>
+  </div>
+</div>
